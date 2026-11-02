@@ -63,12 +63,12 @@ export default function Login() {
               />
             </a>
             <span className="text-slate-300 font-light text-base sm:text-lg">|</span>
-            <div className="flex items-center gap-1.5">
+            <Link to="/" className="flex items-center gap-1.5 hover:opacity-90 transition-opacity">
               <span className="text-base sm:text-lg font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
               <span className="text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded uppercase tracking-wider">
                 UMS
               </span>
-            </div>
+            </Link>
           </div>
 
           {/* Right Side: Laptop vs Phone adaptive */}

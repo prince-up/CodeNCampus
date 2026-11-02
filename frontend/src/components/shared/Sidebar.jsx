@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom'
 import useAuthStore from '../../store/authStore'
 import toast from 'react-hot-toast'
 import { GraduationCap, LogOut, Menu, X } from 'lucide-react'
@@ -40,7 +40,7 @@ export default function Sidebar({ links, role }) {
             className="h-5 w-auto object-contain"
             onError={(e) => { e.currentTarget.style.display = 'none' }}
           />
-          <span className="text-white font-bold text-xs">CodeNCampus</span>
+          <Link to={`/${role}`} className="text-white font-bold text-xs hover:opacity-90 transition-opacity">CodeNCampus</Link>
         </div>
 
         <span className="text-[10px] text-blue-200 uppercase tracking-wider font-bold bg-white/10 px-2 py-0.5 rounded">
@@ -79,7 +79,7 @@ export default function Sidebar({ links, role }) {
               />
             </a>
             <div className="flex items-center gap-2 pt-0.5">
-              <span className="text-white font-bold text-xs tracking-tight">CodeNCampus</span>
+              <Link to={`/${role}`} className="text-white font-bold text-xs tracking-tight hover:opacity-90 transition-opacity">CodeNCampus</Link>
               <span className="text-[10px] text-blue-200 uppercase tracking-wider font-semibold bg-white/10 px-1.5 py-0.2 rounded">
                 {role}
               </span>
