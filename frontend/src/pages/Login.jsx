@@ -43,48 +43,51 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
       
-      {/* ── Top Header Bar ── */}
-      <header className="border-b border-slate-200/90 bg-white sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
+      {/* ── Top Header Bar (Mobile & Desktop Perfected) ── */}
+      <header className="border-b border-slate-200/90 bg-white/95 backdrop-blur-md sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+          {/* Logo & Brand */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
               href="https://anazk.online"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:opacity-90 transition-opacity"
+              className="hover:opacity-90 transition-opacity flex items-center"
             >
               <img
                 src="/anazk-logo-dark.png"
                 alt="Anazk Technologies"
-                className="h-8 w-auto object-contain"
+                className="h-6 sm:h-7 w-auto object-contain"
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             </a>
-            <span className="text-slate-300 font-light text-xl">|</span>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
-              <span className="text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-2 py-0.5 rounded uppercase tracking-wider">
+            <span className="text-slate-300 font-light text-base sm:text-lg">|</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm sm:text-base font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
+              <span className="text-[9px] sm:text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.2 rounded uppercase tracking-wider">
                 UMS
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <nav className="hidden md:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-500">
+          {/* Navigation / Right status */}
+          <div className="flex items-center gap-4">
+            <nav className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-500">
               <a href="#overview" className="hover:text-[#1a3a6d] transition-colors">Overview</a>
               <a href="#modules" className="hover:text-[#1a3a6d] transition-colors">Modules</a>
               <a href="#architecture" className="hover:text-[#1a3a6d] transition-colors">Architecture</a>
-              <a href="#parent" className="hover:text-[#1a3a6d] transition-colors">Anazk Ecosystem</a>
+              <a href="#parent" className="hover:text-[#1a3a6d] transition-colors">Ecosystem</a>
             </nav>
 
             <a
               href="https://anazk.online"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-slate-500 hover:text-[#1a3a6d] font-semibold border-l border-slate-200 pl-6 hidden sm:flex items-center gap-1.5"
+              className="text-[11px] sm:text-xs text-slate-500 hover:text-[#1a3a6d] font-semibold flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-full shrink-0"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Anazk Technologies
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="hidden xs:inline">Anazk Tech</span>
+              <span className="xs:hidden">Anazk</span>
             </a>
           </div>
         </div>
