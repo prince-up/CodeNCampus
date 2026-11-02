@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import useAuthStore from './store/authStore'
 
 // Pages
@@ -43,12 +43,11 @@ const ProtectedRoute = ({ children, role }) => {
   return children
 }
 
-export default function App() {
-  const { user } = useAuthStore()
-
+function AnimatedRoutes() {
+  const location = useLocation()
   return (
-    <BrowserRouter>
-      <Routes>
+    <div key={location.pathname} className="page-enter min-h-screen">
+      <Routes location={location}>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
 
@@ -88,6 +87,14 @@ export default function App() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+    </div>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AnimatedRoutes />
     </BrowserRouter>
   )
 }
