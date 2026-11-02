@@ -21,8 +21,8 @@ export default function StudentLayout() {
     <div className="flex bg-[#f8fafc] min-h-screen">
       <Sidebar links={links} role="student" />
       
-      <div className="flex-1 ml-60 flex flex-col min-h-screen">
-        <header className="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between sticky top-0 z-20">
+      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen pt-16 lg:pt-0">
+        <header className="hidden lg:flex h-16 bg-white border-b border-slate-200 px-8 items-center justify-between sticky top-0 z-20">
           <div className="text-sm font-semibold text-slate-700">
             Student Portal
           </div>
@@ -31,7 +31,7 @@ export default function StudentLayout() {
           </div>
         </header>
 
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
           <Outlet />
         </main>
       </div>

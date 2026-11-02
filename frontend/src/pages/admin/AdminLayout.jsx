@@ -26,9 +26,9 @@ export default function AdminLayout() {
     <div className="flex bg-[#f8fafc] min-h-screen">
       <Sidebar links={links} role="admin" />
       
-      <div className="flex-1 ml-60 flex flex-col min-h-screen">
-        {/* Top Navbar */}
-        <header className="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between sticky top-0 z-20">
+      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen pt-16 lg:pt-0">
+        {/* Desktop Top Navbar (hidden on mobile since sidebar has mobile header) */}
+        <header className="hidden lg:flex h-16 bg-white border-b border-slate-200 px-8 items-center justify-between sticky top-0 z-20">
           <div className="text-sm font-semibold text-slate-700">
             School Administration
           </div>
@@ -41,8 +41,8 @@ export default function AdminLayout() {
           </div>
         </header>
 
-        {/* Content */}
-        <main className="flex-1 p-8">
+        {/* Content Area with responsive padding */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
           <Outlet />
         </main>
       </div>
