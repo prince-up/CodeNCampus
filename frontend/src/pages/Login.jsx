@@ -399,45 +399,45 @@ export default function Login() {
           ══════════════════════════════════════════════════ */}
       <section id="architecture" className="py-20 px-6 max-w-7xl mx-auto w-full border-b border-slate-200/80">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#3d9be0]">Technical Specifications</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#3d9be0]">Why CodeNCampus</span>
           <h2 className="text-3xl sm:text-4xl font-black text-[#1a3a6d] tracking-tight">
-            Engineered for Scale, Security & Uptime
+            Built for Reliability, Security & Simplicity
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">
-            Constructed with a modern decoupled stack: high-performance React client and an Express/MongoDB REST backend.
+            A robust and secure platform designed to handle the daily needs of schools — from small institutions to large campuses with thousands of students.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Security</span>
-            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Role-Based Access</h3>
+            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Secure Role-Based Login</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              JWT authentication with cryptographically signed tokens. Users can only access routes permitted by their administrative role.
+              Every user gets a protected login. Admins, teachers, and students each see only the data and controls relevant to their role — nothing more, nothing less.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Database</span>
-            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Mongoose Schemas</h3>
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Data Management</span>
+            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Complete Record System</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              11 relational schemas modeling students, teachers, subjects, attendance logs, exams, results, and fee records.
+              11 interconnected modules covering students, teachers, subjects, attendance, exams, results, fees, timetable, and notices — all in one place.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Performance</span>
-            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Instant Auto-Seed</h3>
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Ready to Use</span>
+            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Instant Demo Access</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Auto fallback in-memory MongoDB server pre-populated with 37 demo users, complete attendance records, and grades.
+              Try the full system immediately with 37 pre-loaded demo accounts, complete attendance history, exam results, and fee records — no setup required.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Design</span>
-            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Tailwind + Recharts</h3>
+            <h3 className="text-base font-bold text-slate-900 mt-2 mb-1">Works on Every Device</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Fast responsive layouts optimized for desktops, tablets, and faculty laptops with live interactive data charts.
+              Clean, fast interface that works perfectly on phones, tablets, and laptops — with live interactive charts and dashboards for quick insights.
             </p>
           </div>
         </div>
