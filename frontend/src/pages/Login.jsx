@@ -100,70 +100,95 @@ export default function Login() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column: Product Definition & Quick Highlights */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-7">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200/70 text-xs font-bold text-[#1a3a6d] mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/70 text-xs font-bold text-[#1a3a6d] mb-5 shadow-xs">
                 <School className="w-4 h-4 text-[#3d9be0]" />
-                K–12 Institutional Management Operating System
+                K–12 School Management Platform
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-black text-[#1a3a6d] leading-[1.15] tracking-tight">
-                Complete Campus Management System for Modern Schools
+              <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-black text-[#1a3a6d] leading-[1.12] tracking-tight">
+                One Platform to Run<br className="hidden sm:block" /> Your Entire School
               </h1>
 
-              <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-                <strong className="text-slate-800 font-bold">CodeNCampus</strong> is an institutional operating system designed to digitize daily school operations. From Class 1 to 12, it seamlessly connects school leadership, teachers, and students into one unified portal.
+              <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+                <strong className="text-slate-800 font-bold">CodeNCampus</strong> brings admins, teachers, and students together on a single unified portal. Manage attendance, exams, fees, timetables, and more — all from one place.
               </p>
+            </div>
+
+            {/* Quick Stats Row */}
+            <div className="flex flex-wrap gap-3">
+              {[
+                { value: '37+', label: 'Demo Users' },
+                { value: '11', label: 'Modules' },
+                { value: '3', label: 'Role Portals' },
+                { value: '24/7', label: 'Cloud Access' },
+              ].map((stat) => (
+                <div key={stat.label} className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-slate-200 shadow-xs">
+                  <span className="text-base font-black text-[#1a3a6d]">{stat.value}</span>
+                  <span className="text-[11px] font-semibold text-slate-500">{stat.label}</span>
+                </div>
+              ))}
             </div>
 
             {/* 4 Feature Pillar Cards */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1a3a6d] flex items-center justify-center mb-2.5">
-                  <Users className="w-4 h-4" />
+              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:shadow-md hover:border-blue-200 transition-all group border-l-[3px] border-l-[#1a3a6d]">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-9 h-9 rounded-lg bg-blue-50 text-[#1a3a6d] flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                    <Users className="w-4.5 h-4.5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-800">Student & Staff Records</h3>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800">Student & Staff Records</h3>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Centralized student dossiers, teacher subject assignments, and class section management.
+                <p className="text-xs text-slate-500 leading-relaxed pl-12">
+                  Complete profiles, class assignments, and section management for every student and teacher.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center mb-2.5">
-                  <Calendar className="w-4 h-4" />
+              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:shadow-md hover:border-emerald-200 transition-all group border-l-[3px] border-l-emerald-500">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                    <Calendar className="w-4.5 h-4.5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-800">Attendance & Timetables</h3>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800">Live Attendance & Timetables</h3>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Single-click daily attendance marking, automated alerts, and master period schedules.
+                <p className="text-xs text-slate-500 leading-relaxed pl-12">
+                  One-click daily attendance, automated tracking, and master period schedules for all classes.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all">
-                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center mb-2.5">
-                  <FileText className="w-4 h-4" />
+              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:shadow-md hover:border-purple-200 transition-all group border-l-[3px] border-l-purple-500">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-9 h-9 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                    <FileText className="w-4.5 h-4.5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-800">Exams & Report Cards</h3>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800">Exams & Grade Computing</h3>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Unit tests, term exams, real-time grading scale (A+ to F), and digital report cards.
+                <p className="text-xs text-slate-500 leading-relaxed pl-12">
+                  Unit tests, term exams, automatic grading (A+ to F), and downloadable digital report cards.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 transition-all">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center mb-2.5">
-                  <DollarSign className="w-4 h-4" />
+              <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-xs hover:shadow-md hover:border-amber-200 transition-all group border-l-[3px] border-l-amber-500">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                    <DollarSign className="w-4.5 h-4.5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-slate-800">Fee Management</h3>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800">Fee Accounts & Receipts</h3>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Fee structures, pending dues ledger, instant receipt generation, and collection summaries.
+                <p className="text-xs text-slate-500 leading-relaxed pl-12">
+                  Fee structures, pending dues tracking, instant receipt generation, and collection summaries.
                 </p>
               </div>
             </div>
 
             {/* Parent company attribution bar */}
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-100/70 border border-slate-200 text-xs text-slate-600">
-              <Building2 className="w-4 h-4 text-[#1a3a6d] shrink-0" />
+            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100/80 border border-slate-200 text-xs text-slate-600">
+              <div className="w-7 h-7 rounded-lg bg-[#1a3a6d] flex items-center justify-center shrink-0">
+                <Building2 className="w-3.5 h-3.5 text-white" />
+              </div>
               <span>
-                Engineered under <strong>Anazk Technologies Private Limited</strong> alongside <em>CodeNCommit</em> & <em>CodeNBrowser</em>.
+                A product of <a href="https://anazk.online" target="_blank" rel="noopener noreferrer" className="font-bold text-[#1a3a6d] hover:underline">Anazk Technologies Pvt. Ltd.</a> — Building tools for modern education.
               </span>
             </div>
           </div>
