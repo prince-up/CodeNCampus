@@ -211,34 +211,57 @@ export default function LandingPage() {
       </section>
 
       {/* ── 9 Core Modules Grid ── */}
-      <section id="modules" className="py-24 bg-white">
+      <section id="modules" className="py-24 bg-gradient-to-b from-white to-slate-50/80">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#3d9be0]">Complete Institutional Coverage</span>
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-3.5 py-1.5 rounded-full">
+              <Sparkles className="w-3.5 h-3.5" />
+              Complete Institutional Coverage
+            </span>
             <h2 className="text-3xl sm:text-4xl font-black text-[#1a3a6d]">Everything a School Needs to Run</h2>
-            <p className="text-slate-600 text-sm sm:text-base">Built specifically for Class 1 to 12 school administrations following national curriculum structures.</p>
+            <p className="text-slate-600 text-sm sm:text-base">Built specifically for Class 1 to 12 school administrations — covering every department, every workflow.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { title: 'Student Management', desc: 'Central student registry with roll numbers, blood group, guardian details, and class sections.' },
-              { title: 'Faculty & Subject Mapping', desc: 'Manage teaching staff credentials, employee IDs, subject assignments, and departmental roles.' },
-              { title: 'Class & Section Builder', desc: 'Define classes 1 through 12, divide cohorts into sections A-D, and assign dedicated class teachers.' },
-              { title: 'Daily Attendance Engine', desc: 'Period and daily attendance tracking with automated calculation of student attendance percentage.' },
-              { title: 'Exams & Automated Grading', desc: 'Unit Tests, Term 1, Term 2, and Final Exams with standardized A+, A, B, C, D, and F grading hooks.' },
-              { title: 'Fee Accounting & Ledgers', desc: 'Monthly tuition fees, examination dues, balance tracking, and auto-generated receipt serials.' },
-              { title: 'Master Timetable Scheduler', desc: 'Configurable 8-period school timetable with automated conflict checking between faculty.' },
-              { title: 'Institutional Notice Board', desc: 'Broadcast circulars targeted to all campus members, teachers-only, or students-only.' },
-              { title: 'Multi-Role Security (RBAC)', desc: 'Bank-grade JWT authentication ensuring students, teachers, and admins only access authorized areas.' },
-            ].map((m, idx) => (
-              <div key={idx} className="p-6 rounded-2xl border border-slate-200/90 hover:border-slate-300 hover:shadow-xs transition-all bg-white">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1a3a6d] font-bold text-xs flex items-center justify-center mb-4">
-                  0{idx + 1}
+              { icon: Users, color: 'blue', title: 'Student Management', desc: 'Complete student profiles with roll numbers, guardian details, blood group, and class-section mapping.' },
+              { icon: BookOpen, color: 'indigo', title: 'Faculty & Subject Mapping', desc: 'Staff directory with subject assignments, employee IDs, qualifications, and department roles.' },
+              { icon: School, color: 'sky', title: 'Class & Section Builder', desc: 'Create classes 1 through 12, divide into sections A–D, and assign dedicated class teachers.' },
+              { icon: Calendar, color: 'emerald', title: 'Daily Attendance Tracking', desc: 'One-click attendance marking with automatic percentage calculation and absence alerts.' },
+              { icon: Award, color: 'purple', title: 'Exams & Auto Grading', desc: 'Unit Tests, Term exams, and Finals with automatic A+ to F grading and digital report cards.' },
+              { icon: DollarSign, color: 'amber', title: 'Fee Accounts & Receipts', desc: 'Monthly fee tracking, pending dues ledger, instant receipt generation, and collection reports.' },
+              { icon: Clock, color: 'teal', title: 'Timetable Scheduler', desc: 'Configurable 8-period timetable builder with day-wise scheduling for every class and section.' },
+              { icon: Bell, color: 'rose', title: 'Notice Board', desc: 'Broadcast announcements to all, teachers-only, or students-only — with priority tagging.' },
+              { icon: ShieldCheck, color: 'slate', title: 'Secure Access Control', desc: 'Each user sees only their authorized data — admins, teachers, and students get separate secure portals.' },
+            ].map((m, idx) => {
+              const colorMap = {
+                blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-l-blue-500', hoverBorder: 'hover:border-blue-200' },
+                indigo: { bg: 'bg-indigo-50', text: 'text-indigo-600', border: 'border-l-indigo-500', hoverBorder: 'hover:border-indigo-200' },
+                sky: { bg: 'bg-sky-50', text: 'text-sky-600', border: 'border-l-sky-500', hoverBorder: 'hover:border-sky-200' },
+                emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-l-emerald-500', hoverBorder: 'hover:border-emerald-200' },
+                purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-l-purple-500', hoverBorder: 'hover:border-purple-200' },
+                amber: { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-l-amber-500', hoverBorder: 'hover:border-amber-200' },
+                teal: { bg: 'bg-teal-50', text: 'text-teal-600', border: 'border-l-teal-500', hoverBorder: 'hover:border-teal-200' },
+                rose: { bg: 'bg-rose-50', text: 'text-rose-600', border: 'border-l-rose-500', hoverBorder: 'hover:border-rose-200' },
+                slate: { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-l-slate-500', hoverBorder: 'hover:border-slate-300' },
+              }
+              const c = colorMap[m.color]
+              const Icon = m.icon
+              return (
+                <div key={idx} className={`p-5 rounded-2xl border border-slate-200/90 ${c.hoverBorder} hover:shadow-md transition-all bg-white border-l-[3px] ${c.border} group`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className={`w-10 h-10 rounded-xl ${c.bg} ${c.text} flex items-center justify-center group-hover:scale-105 transition-transform`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 text-[15px] leading-tight">{m.title}</h3>
+                      <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Module {String(idx + 1).padStart(2, '0')}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 leading-relaxed pl-[52px]">{m.desc}</p>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base mb-2">{m.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{m.desc}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
