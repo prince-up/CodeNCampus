@@ -12,22 +12,25 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
       
-      {/* ── Top Global Navbar (Mobile & Desktop Perfected) ── */}
+      {/* ── Top Global Navbar (100% Mobile & Desktop Perfect) ── */}
       <header className="border-b border-slate-200/80 bg-white/95 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-18 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          
+          {/* Brand Left */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <a href="https://anazk.online" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity flex items-center">
               <img src="/anazk-logo-dark.png" alt="Anazk Technologies" className="h-6 sm:h-7 w-auto object-contain" />
             </a>
             <span className="text-slate-300 font-light text-base sm:text-lg">|</span>
             <div className="flex items-center gap-1.5">
               <span className="text-sm sm:text-base font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
-              <span className="text-[9px] sm:text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.2 rounded uppercase tracking-wider">
+              <span className="hidden sm:inline-block text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.2 rounded uppercase tracking-wider">
                 UMS
               </span>
             </div>
           </div>
 
+          {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             <a href="#features" className="hover:text-[#1a3a6d] transition-colors">Features</a>
             <a href="#portals" className="hover:text-[#1a3a6d] transition-colors">Portals</a>
@@ -35,21 +38,17 @@ export default function LandingPage() {
             <a href="#faq" className="hover:text-[#1a3a6d] transition-colors">Architecture</a>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Right Action Buttons */}
+          <div className="flex items-center gap-2">
             <Link
               to="/login"
-              className="text-xs sm:text-sm font-bold text-slate-700 hover:text-[#1a3a6d] px-3 sm:px-4 py-2 rounded-lg border border-slate-200 hover:border-slate-300 transition-colors"
+              className="text-xs font-bold bg-[#1a3a6d] hover:bg-[#142e56] text-white px-3.5 py-2 rounded-lg transition-all shadow-xs flex items-center gap-1"
             >
-              Sign In
-            </Link>
-            <Link
-              to="/login"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold bg-[#1a3a6d] hover:bg-[#142e56] text-white px-3.5 sm:px-5 py-2 rounded-lg transition-all shadow-xs"
-            >
-              Demo
+              <span>Sign In</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
+
         </div>
       </header>
 
