@@ -43,11 +43,12 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
       
-      {/* ── Top Header Bar (Mobile & Desktop Perfected) ── */}
-      <header className="border-b border-slate-200/90 bg-white/95 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+      {/* ── Adaptive Top Header: Laptop vs Phone ── */}
+      <header className="border-b border-slate-200/80 bg-white sticky top-0 z-40 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          
+          {/* Brand Left: Always neat on both Phone & Laptop */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="https://anazk.online"
               target="_blank"
@@ -57,39 +58,38 @@ export default function Login() {
               <img
                 src="/anazk-logo-dark.png"
                 alt="Anazk Technologies"
-                className="h-6 sm:h-7 w-auto object-contain"
+                className="h-7 sm:h-8 w-auto object-contain"
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             </a>
             <span className="text-slate-300 font-light text-base sm:text-lg">|</span>
             <div className="flex items-center gap-1.5">
-              <span className="text-sm sm:text-base font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
-              <span className="text-[9px] sm:text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.2 rounded uppercase tracking-wider">
+              <span className="text-base sm:text-lg font-black text-[#1a3a6d] tracking-tight">CodeNCampus</span>
+              <span className="text-[10px] font-bold text-[#3d9be0] bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded uppercase tracking-wider">
                 UMS
               </span>
             </div>
           </div>
 
-          {/* Navigation / Right status */}
-          <div className="flex items-center gap-4">
-            <nav className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-500">
-              <a href="#overview" className="hover:text-[#1a3a6d] transition-colors">Overview</a>
-              <a href="#modules" className="hover:text-[#1a3a6d] transition-colors">Modules</a>
-              <a href="#architecture" className="hover:text-[#1a3a6d] transition-colors">Architecture</a>
-              <a href="#parent" className="hover:text-[#1a3a6d] transition-colors">Ecosystem</a>
-            </nav>
-
+          {/* Right Side: Laptop vs Phone adaptive */}
+          <div className="flex items-center">
+            {/* On Laptop: Clean full text */}
             <a
               href="https://anazk.online"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] sm:text-xs text-slate-500 hover:text-[#1a3a6d] font-semibold flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-full shrink-0"
+              className="hidden sm:inline-flex text-xs text-slate-500 hover:text-[#1a3a6d] font-medium transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span className="hidden xs:inline">Anazk Tech</span>
-              <span className="xs:hidden">Anazk</span>
+              An Anazk Technologies Product
             </a>
+
+            {/* On Phone: Subtle small pill badge */}
+            <span className="sm:hidden inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Anazk
+            </span>
           </div>
+
         </div>
       </header>
 
