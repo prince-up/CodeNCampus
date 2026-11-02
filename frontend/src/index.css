@@ -54,11 +54,11 @@
 
 /* Modern Cards */
 .card {
-  @apply bg-white rounded-2xl border border-slate-200/80 shadow-card p-6 transition-all duration-300;
+  @apply bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 transition-all duration-300;
 }
 
 .card:hover {
-  @apply shadow-card-hover border-slate-300/80;
+  @apply shadow-md border-slate-300/80;
 }
 
 /* Buttons */
