@@ -16,15 +16,27 @@ export default function Sidebar({ links, role }) {
 
   return (
     <aside className="w-60 min-h-screen bg-[#1a3a6d] flex flex-col fixed left-0 top-0 z-30 select-none border-r border-[#142e56]">
-      {/* Brand Header */}
-      <div className="h-16 px-5 border-b border-white/10 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
-          <GraduationCap className="w-5 h-5" />
-        </div>
-        <div className="min-w-0">
-          <p className="text-white font-bold text-sm tracking-tight truncate leading-tight">CodeNCampus</p>
-          <span className="text-[10px] text-blue-200 uppercase tracking-wider font-semibold">
-            {role} Portal
+      {/* Brand Header with Anazk Logo */}
+      <div className="p-4 border-b border-white/10 flex flex-col gap-1.5">
+        <a
+          href="https://anazk.online"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:opacity-90 transition-opacity"
+        >
+          <img
+            src="/anazk-logo-light.png"
+            alt="Anazk Technologies"
+            className="h-6 w-auto object-contain"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+          />
+        </a>
+        <div className="flex items-center justify-between pt-1">
+          <span className="text-white font-bold text-xs tracking-tight">CodeNCampus UMS</span>
+          <span className="text-[10px] text-blue-200 uppercase tracking-wider font-semibold bg-white/10 px-1.5 py-0.2 rounded">
+            {role}
           </span>
         </div>
       </div>
@@ -50,8 +62,8 @@ export default function Sidebar({ links, role }) {
         ))}
       </nav>
 
-      {/* User profile & Logout */}
-      <div className="p-3 border-t border-white/10">
+      {/* Footer Branding & Logout */}
+      <div className="p-3 border-t border-white/10 bg-[#142e56]/50">
         <div className="flex items-center gap-2.5 px-2 py-2 mb-2">
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-xs shrink-0">
             {user?.name?.[0]?.toUpperCase()}
@@ -69,6 +81,17 @@ export default function Sidebar({ links, role }) {
           <LogOut className="w-3.5 h-3.5" />
           Logout
         </button>
+
+        <div className="mt-2 pt-2 border-t border-white/5 text-center">
+          <a
+            href="https://anazk.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-blue-200/50 hover:text-blue-100 transition-colors"
+          >
+            by Anazk Technologies
+          </a>
+        </div>
       </div>
     </aside>
   )

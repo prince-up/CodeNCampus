@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { login } from '../utils/api'
 import useAuthStore from '../store/authStore'
 import toast from 'react-hot-toast'
-import { GraduationCap, Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react'
+import { Eye, EyeOff, Loader2, ArrowRight } from 'lucide-react'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -35,32 +35,56 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col justify-between font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* Clean Top Navbar */}
+      {/* Clean Header with Official Anazk Parent Branding */}
       <header className="border-b border-slate-200 bg-white sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#1a3a6d] flex items-center justify-center text-white">
-              <GraduationCap className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-lg font-bold text-[#1a3a6d] tracking-tight">CodeNCampus</span>
-              <span className="ml-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">UMS</span>
+            <a
+              href="https://anazk.online"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <img
+                src="/anazk-logo-dark.png"
+                alt="Anazk Technologies"
+                className="h-8 w-auto object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none'
+                }}
+              />
+            </a>
+            <span className="text-slate-300 font-light">|</span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-base font-bold text-[#1a3a6d] tracking-tight">CodeNCampus</span>
+              <span className="text-[11px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">
+                UMS
+              </span>
             </div>
           </div>
-          <div className="text-xs text-slate-500 font-medium">
-            Demo Portal
-          </div>
+
+          <a
+            href="https://anazk.online"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-slate-500 hover:text-[#1a3a6d] font-medium flex items-center gap-1"
+          >
+            An Anazk Technologies Product
+          </a>
         </div>
       </header>
 
-      {/* Main Login Area - Clean & Centered */}
+      {/* Main Login Area */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           
           <div className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-sm">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-[#1a3a6d] tracking-tight">Sign In</h1>
-              <p className="text-sm text-slate-500 mt-1">Access your school management dashboard</p>
+              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                Institutional Portal
+              </div>
+              <h1 className="text-2xl font-bold text-[#1a3a6d] tracking-tight">Sign In to CodeNCampus</h1>
+              <p className="text-xs text-slate-500 mt-1">Class 1 to 12 School Management Suite</p>
             </div>
 
             {/* Persona Quick Select */}
@@ -92,7 +116,7 @@ export default function Login() {
                 <label className="block text-xs font-semibold text-slate-700 mb-1.5">Email</label>
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="name@codencampus.com"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   required
@@ -143,16 +167,16 @@ export default function Login() {
 
           <div className="text-center mt-6">
             <p className="text-xs text-slate-400">
-              Demo environment initialized with sample school records.
+              Developed & operated under <a href="https://anazk.online" target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-600 hover:underline">Anazk Technologies Private Limited</a>.
             </p>
           </div>
 
         </div>
       </main>
 
-      {/* Clean Footer */}
+      {/* Corporate Footer */}
       <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-400">
-        © 2024 CodeNCampus · School Management Portal
+        © 2024 CodeNCampus · A Product of <a href="https://anazk.online" target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-600 hover:underline">Anazk Technologies Pvt. Ltd.</a>
       </footer>
     </div>
   )
