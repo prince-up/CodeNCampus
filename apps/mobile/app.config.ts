@@ -48,7 +48,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     orientation: "portrait",
     scheme: "codencampus",
     userInterfaceStyle: "automatic",
-    newArchEnabled: true,
     ios: {
       supportsTablet: true,
       bundleIdentifier: tenant.bundleIdentifier,
