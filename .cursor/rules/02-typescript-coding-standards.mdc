@@ -1,0 +1,33 @@
+---
+description: TypeScript conventions, code quality, and engineering standards for CodeNCampus
+globs: **/*.{ts,tsx,js,jsx}
+alwaysApply: true
+---
+
+# TypeScript & Coding Standards
+
+## 1. Core Principles & Code Inspection
+- **Always Inspect Before Editing:** Read and analyze existing files, dependencies, and type contracts before modifying or refactoring.
+- **Strict TypeScript:** All new code must be written in TypeScript with `strict: true`.
+- **Zero `any` Policy:** Never use `any`. Use explicit interfaces, typed generics, `unknown` with type narrowing, or Zod-inferred types (`z.infer<typeof Schema>`).
+- **Separation of Concerns:** Keep business logic outside UI components (controllers/services in backend; custom hooks/stores in frontend).
+
+## 2. Naming Conventions & Structure
+- **Files & Directories:**
+  - React components: `PascalCase.tsx` (e.g., `StudentAttendanceCard.tsx`).
+  - Hooks: `camelCase.ts` prefixed with `use` (e.g., `useStudentProfile.ts`).
+  - Services / Modules: `kebab-case.ts` (e.g., `attendance.service.ts`, `attendance.routes.ts`).
+  - Interfaces & Types: `PascalCase` (e.g., `StudentProfileDTO`, `AttendanceStatus`).
+- **Database Fields:** `snake_case` in PostgreSQL DDL; `camelCase` in Prisma client & TypeScript domain models.
+- **Readable IDs:** Standard format `[SCHOOL_CODE]-[ENTITY]-[PADDED_NUMBER]` (e.g., `DPS-STU-00042`, `DPS-TCH-00010`).
+
+## 3. Data Validation & Boundary Contracts
+- **Validate at All Ingress Points:** Never trust external input from HTTP bodies, URL parameters, query strings, or mobile headers.
+- **Single Source of Truth:** Declare request/response validation schemas using **Zod** in `@codencampus/validators`. Infer TypeScript types directly from schemas.
+- **Fail Fast:** Reject malformed payloads before domain service execution with standard HTTP 400 error envelopes.
+
+## 4. Error Handling & Logging
+- **Never Silently Catch Errors:** Never use empty `catch {}` blocks.
+- **No Stack Traces to Clients:** Catch exceptions in centralized middleware. Log internal details, query parameters, and stack traces via structured logger (`pino`), returning sanitized error responses (`code`, `message`, `statusCode`) to clients.
+- **Immutable Context:** Always attach `schoolId`, `userId`, and `requestId` to log entries.
+

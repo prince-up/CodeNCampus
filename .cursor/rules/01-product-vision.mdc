@@ -1,0 +1,36 @@
+---
+description: Product vision, business requirements, and domain model for CodeNCampus
+globs: **/*
+alwaysApply: true
+---
+
+# CodeNCampus — Product Vision & Business Rules
+
+## 1. Core Identity & Ownership
+- **Product:** CodeNCampus is a commercial, multi-tenant digital operating system and SaaS platform for schools (Nursery to Class 12).
+- **Owner:** Owned, maintained, and operated by Codazk Technologies Private Limited.
+- **Audience:** Sold as a commercial B2B product to multiple independent schools, trusts, and educational boards (CBSE, ICSE, State Boards).
+- **Standard:** Never treat this codebase as a tutorial, prototype, or student project. Build commercial, production-grade software.
+
+## 2. Institutional Scope
+- Must support Nursery to Class 12 (K-12).
+- Must support single campus schools and multi-branch school organizations/trusts.
+- Must accommodate educational board differences:
+  - **CBSE:** 9-point grading scale (`A1` through `E`), Periodic Assessments, Co-scholastic skills.
+  - **ICSE:** Internal assessments, project marks, percentage weightages.
+  - **State Boards:** Continuous and Comprehensive Evaluation (CCE) and custom marks grading.
+
+## 3. Stakeholder Personas
+The system serves 5 distinct primary roles:
+1. **Student:** Timetable, homework, attendance records, exam results, notices.
+2. **Parent:** Multi-child switcher, live attendance alerts, homework tracker, online fee payment, circulars.
+3. **Teacher:** Class and subject-wise attendance marking, marks entry, homework assignment, class remarks.
+4. **School Admin:** Master configurations, student intake, fee heads, staff management, permissions.
+5. **Principal:** Academic metrics, staff review, fee recovery analytics, school broadcasts.
+6. **Super Admin (Codazk):** Global platform health, tenant provisioning, subscription billing.
+
+## 4. Architectural Boundaries
+- Never introduce new frameworks, services, or microservices without explicit architectural justification and founder approval.
+- Follow the approved phased roadmap in `docs/DEVELOPMENT_ROADMAP.md`. Do not start building downstream features out of order.
+- Preserve the modular monolith architecture: shared Turborepo monorepo, Fastify backend, Next.js web portal, Expo React Native mobile app.
+

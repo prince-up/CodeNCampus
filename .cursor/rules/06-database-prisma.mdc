@@ -1,0 +1,42 @@
+---
+description: PostgreSQL database design, Prisma ORM standards, and migration rules
+globs: packages/database/**/*.{prisma,ts,sql}
+alwaysApply: false
+---
+
+# PostgreSQL & Prisma Database Standards
+
+## 1. Primary Keys & Identifier Strategy
+- **Internal Keys (UUIDv4):** All entities MUST use cryptographically random UUID primary keys (`@id @default(uuid())` or `gen_random_uuid()`). Never use autoincrementing integer IDs for database identity.
+- **Human-Readable IDs:** Daily operational IDs (`DPS-STU-00001`, `DPS-TCH-00001`, `DPS-INV-2026-00049`) MUST be generated on the server using atomic `tenant_sequences` counters within database transactions to prevent race conditions. Never let clients supply readable IDs.
+
+## 2. Mandatory Tenant Scoping & Indexing
+- **Non-Nullable `school_id`:** Every tenant-bound entity MUST have:
+  ```prisma
+  schoolId String @map("school_id") @db.Uuid
+  school   School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  ```
+- **Composite Indexes:** Every searchable field must be indexed in combination with `schoolId`:
+  ```prisma
+  @@index([schoolId, status])
+  @@index([schoolId, createdAt(sort: Desc)])
+  @@unique([schoolId, admissionNumber])
+  ```
+- Single-column indexes on non-unique fields without `schoolId` are prohibited because queries will always be tenant-scoped.
+
+## 3. Data Integrity & Soft Deletes
+- Use soft deletes (`deletedAt DateTime? @map("deleted_at") @db.Timestamptz`) for students, fee invoices, staff, and attendance records to preserve statutory auditability.
+- Never hard-delete financial or academic records.
+
+## 4. Extended Prisma Client
+- All queries in application services must use the extended Prisma client (`createTenantPrismaClient(schoolId)`), which automatically injects `where: { schoolId }` into all read/write operations.
+- Avoid bypassing the extended client with raw `$queryRaw` unless executing high-performance aggregate reporting, in which case `WHERE school_id = $1` must be explicitly verified.
+
+## 5. Migration Safety & Zero Destructive Operations
+- **STRICT PROHIBITION:** Never run `prisma migrate reset`, `DROP DATABASE`, or `DROP TABLE` in any environment without explicit founder authorization.
+- Always use the **Expand and Contract** migration pattern for schema evolution:
+  1. Add new columns as optional/nullable.
+  2. Deploy application code that handles both versions.
+  3. Backfill data and mark column `NOT NULL` in a subsequent migration.
+- Review all generated SQL migrations under `packages/database/prisma/migrations/` before committing.
+

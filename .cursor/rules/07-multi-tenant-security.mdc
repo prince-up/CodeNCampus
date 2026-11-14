@@ -1,0 +1,56 @@
+---
+description: Multi-tenant security, tenant isolation, and authorization rules for CodeNCampus
+globs: **/*
+alwaysApply: true
+---
+
+# Multi-Tenant Security & Authorization Rules
+
+## 1. Non-Negotiable Core Principles
+- **Never Rely on Client Trust:** NEVER rely on frontend filtering or school IDs supplied in client query strings/bodies to authorize access.
+- **Never Bypass Tenant Isolation:** Every single query reading, updating, or deleting tenant data MUST be constrained to the authenticated user's active tenant (`school_id`).
+- **Never Bypass Auth or Permissions:** Under no circumstance may security checks, JWT verification, or permission guards be commented out or disabled to "make something work."
+
+## 2. The Three Concentric Isolation Rings
+CodeNCampus enforces defense-in-depth across three distinct application layers:
+1. **Layer 1 — Fastify Tenant Guard (`tenantGuard`):**
+   - Validates that the authenticated user (`req.user.id`) possesses an active, un-suspended record in `school_memberships` for the requested `X-School-ID`.
+   - Rejects cross-tenant tokens with HTTP 403 Forbidden.
+2. **Layer 2 — Prisma Tenant Extension:**
+   - Intercepts query ASTs and automatically injects `schoolId: activeSchoolId` into every `findMany`, `findFirst`, `create`, `updateMany`, and `deleteMany`.
+3. **Layer 3 — PostgreSQL Row-Level Security (RLS):**
+   - RLS policies on core tables evaluate `school_id = current_setting('app.current_school_id')::uuid`.
+   - Acts as an unbypassable kernel fail-safe against raw query leaks or developer oversights.
+
+## 3. IDOR Prevention Standards
+- Avoid single-key lookups like `db.student.findUnique({ where: { id: studentId } })`.
+- Always enforce composite lookups:
+  ```typescript
+  const student = await db.student.findFirst({
+    where: {
+      id: studentId,
+      schoolId: request.auth.schoolId,
+    },
+  });
+  if (!student) return reply.status(404).send({ error: 'Resource not found' });
+  ```
+- Return HTTP 404 rather than 403 to prevent attackers from enumerating valid IDs belonging to other institutions.
+
+## 4. Fine-Grained Permission Enforcement
+- Do not check raw role strings in route handlers.
+- Enforce granular permission codes via route pre-handlers:
+  ```typescript
+  preHandler: [fastify.authenticate, requirePermission('marks.publish')]
+  ```
+- Permissions are evaluated against the user's role mapping for the active school context.
+
+## 5. Minor Data Protection (DPDP Act 2023)
+- Require Verifiable Parental Consent (VPC) before activating student accounts.
+- Encrypt national identification numbers (e.g., Aadhaar) at rest using AES-256 envelope encryption.
+- Strictly prohibit behavioral tracking, targeted advertisements, or third-party marketing SDKs on any child-facing screen.
+
+## 6. S3 Asset Isolation
+- All file uploads MUST be routed through short-lived (15-minute) pre-signed S3 URLs.
+- S3 object keys MUST be partitioned by tenant: `tenants/{school_id}/{module}/{file_id}`.
+- Direct public read access to student records, invoices, or transfer certificates is strictly prohibited.
+

@@ -1,0 +1,25 @@
+{
+  "default": {
+    "name": "CodeNCampus",
+    "slug": "codencampus-app",
+    "bundleIdentifier": "com.codazk.codencampus",
+    "package": "com.codazk.codencampus",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  "dpsrkp": {
+    "name": "DPS R.K. Puram",
+    "slug": "dps-rkp-campus",
+    "bundleIdentifier": "com.codencampus.dpsrkp",
+    "package": "com.codencampus.dpsrkp",
+    "icon": "./assets/dpsrkp-icon.png",
+    "splash": {
+      "image": "./assets/dpsrkp-splash.png",
+      "backgroundColor": "#0F5132"
+    },
+    "defaultSchoolCode": "DPSRKP"
+  }
+}

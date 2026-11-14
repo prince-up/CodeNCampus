@@ -1,0 +1,31 @@
+---
+description: Next.js web application rules for CodeNCampus
+globs: apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Next.js Web Development Rules
+
+## 1. Core Stack & Architecture
+- **Framework:** Next.js 15 (App Router under `apps/web/src/app/`).
+- **Styling:** Tailwind CSS with design-system tokens mapped to CSS variables for dynamic tenant theming.
+- **Components:** Accessible primitives based on Radix UI (`@radix-ui/*`) with clean, minimal, non-generic SaaS aesthetics.
+- **Charts & Dashboards:** Recharts for academic performance, fee recovery, and attendance trend visualization.
+
+## 2. Server vs. Client Component Boundaries
+- **Default to Server Components (RSC):** Layouts, page shells, data aggregation, and initial authentication checks must run on the server to prevent sending sensitive authorization logic to the client browser.
+- **Client Components (`'use client'`):** Confine to interactive leaf nodes only (e.g., data tables with filtering, modals, forms, attendance checkboxes, chart wrappers).
+- **No Direct Database Access from Client Components:** Mutate and query either through Next.js Server Actions with tenant context verification or via the centralized Fastify API.
+
+## 3. Subdomain & Custom Domain Handling
+- Leverage Next.js Middleware (`middleware.ts`) to inspect the incoming `Host` header.
+- Extract the tenant identifier:
+  - Subdomains: `dpsrkp.codencampus.com` -> `tenantKey: 'dpsrkp'`.
+  - Custom Domains: `portal.dpsdelhi.edu.in` -> mapped via cache to `tenantKey`.
+- Inject the active tenant context and branding CSS custom properties (`--color-primary`, `--color-secondary`) into the root HTML tag.
+
+## 4. UI/UX & Responsive Standards
+- Full responsiveness: Design for desktop administrative workstations, laptops, and mobile tablet views.
+- Accessible by default: Support keyboard navigation, proper ARIA labels, semantic HTML, and high-contrast color ratios.
+- Consistent feedback: Use toast notifications (`sonner`) and accessible dialogs for confirmation of destructive actions (e.g., student transfer, fee waiver).
+

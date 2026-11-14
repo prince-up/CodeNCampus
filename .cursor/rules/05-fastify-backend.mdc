@@ -1,0 +1,43 @@
+---
+description: Fastify backend architecture, modular monolith, and API design rules
+globs: apps/api/**/*.{ts,js}
+alwaysApply: false
+---
+
+# Fastify Backend Architecture Rules
+
+## 1. Modular Monolith Architecture
+- **Location:** `apps/api/src/modules/`
+- Structure domain logic into self-contained feature modules:
+  - `auth/`: Session validation, Supabase JWT verification, RBAC mapping.
+  - `schools/`: Organization, campus branches, settings, branding.
+  - `users/`: Students, teachers, parents, staff profiles, readable ID generation.
+  - `academics/`: Academic years, classes, sections, subjects, timetables.
+  - `attendance/`: Daily and period attendance recording.
+  - `exams/`: Exam schedules, marks entry, grading formulas, report cards.
+  - `fees/`: Fee heads, structures, invoices, payment gateway reconciliation.
+  - `notifications/`: Push notifications, SMS, WhatsApp broadcasts.
+- **Module Encapsulation:** Module A must NEVER directly query Module B's private database tables. Interactions must occur through exported Domain Services or asynchronous BullMQ events.
+
+## 2. Request Lifecycle & Hook Pipeline
+Every route must adhere to Fastify's standardized request lifecycle:
+1. `onRequest`: CORS, rate limiting (`@fastify/rate-limit`), and stateless JWT verification (`authPlugin`). Decorates `req.auth`.
+2. `preHandler`: Tenant guard (`tenantGuard`). Confirms user has an active membership in `req.headers['x-school-id']`.
+3. `preValidation`: Zod schema validation using Fastify JSON schema compiler or Zod validator middleware.
+4. Handler: Domain service execution using tenant-scoped database client (`req.db`).
+
+## 3. Fastify Plugins & Decorators
+- Declare plugins using `fastify-plugin` (`fp`) to prevent encapsulation leaks.
+- Decorate `fastify` and `FastifyRequest` with clean, strongly-typed interfaces:
+  - `req.auth`: Holds `{ user, schoolId, role, permissions }`.
+  - `req.db`: Holds the tenant-scoped Prisma client (`createTenantPrismaClient(schoolId)`).
+
+## 4. Asynchronous Workflows (BullMQ + Redis)
+- Never perform blocking operations in HTTP route handlers (e.g., generating CBSE report card PDFs, dispatching 1,000 SMS messages, or reconciling bulk fees).
+- Dispatch tasks immediately to BullMQ queues (`pdf-queue`, `notification-queue`).
+- Return HTTP 202 Accepted with a job identifier where appropriate.
+
+## 5. Security & Rate Limiting
+- Use `@fastify/helmet` with strict security headers.
+- Rate-limit login and OTP endpoints: max 5 failed attempts per 15 minutes per IP; max 3 OTP requests per 10 minutes per phone number.
+

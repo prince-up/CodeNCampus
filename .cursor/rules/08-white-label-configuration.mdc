@@ -1,0 +1,42 @@
+---
+description: White-label application configuration, dynamic theming, and build pipeline rules
+globs: apps/mobile/**/*.{ts,tsx,json},apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# White-Label Application Configuration Rules
+
+## 1. Single Codebase Mandate
+- **STRICT PROHIBITION:** Never create separate mobile application codebases, forks, or git repositories for individual schools.
+- All institutional branding, white-label store builds, and dynamic customizations must originate from the unified source code in `apps/mobile/`.
+
+## 2. Dual-Track White-Label Architecture
+CodeNCampus supports two distinct branding tracks:
+1. **Track 1: Common Application (Dynamic Runtime Theming):**
+   - Single download from App Store / Google Play (`com.codazk.codencampus`).
+   - Dynamically loads school logo, theme colors, and institution name from the backend API `/schools/{id}/theme` upon user authentication or school selection.
+   - Styled via dynamic React Native tokens provided by `ThemeProvider`.
+2. **Track 2: Standalone White-Label Store Listings (EAS Build Matrix):**
+   - Independent native store listings (e.g., "DPS RKP Connect", package: `com.codencampus.dpsrkp`).
+   - Generated using Expo Dynamic Configuration (`app.config.ts`) and profile definitions in `eas.json`.
+
+## 3. Operating System Boundary Reality
+- An installed mobile application on iOS or Android **CANNOT** alter its bundle identifier, application name in the OS launcher, or native app launcher icon at runtime via network requests.
+- Never write code attempting to hot-swap native package IDs or native launcher icons inside a running app.
+- Distinct store listings require separate builds compiled via EAS Build profiles with the appropriate `APP_TENANT` environment flag.
+
+## 4. White-Label Configuration Registry
+- Centralize all tenant build metadata in `apps/mobile/tenants.config.json`.
+- Each tenant entry must declare:
+  - `name`: Display name on app stores and home screen.
+  - `slug`: Expo application slug.
+  - `bundleIdentifier`: iOS bundle ID (`com.codencampus.<school>`).
+  - `package`: Android application package name (`com.codencampus.<school>`).
+  - `icon`: Path to square asset (1024x1024 png).
+  - `splash`: Splash image and background hex color.
+  - `defaultSchoolCode`: Optional pre-bound school identifier.
+
+## 5. Web Portal Custom Domains & Subdomains
+- The Next.js web application must support dynamic branding via CSS custom properties (`--color-primary`, `--color-secondary`) injected at the root `<html>` level based on the resolved `Host` header.
+- Never hardcode CSS color classes for institutional branding in web layout components.
+

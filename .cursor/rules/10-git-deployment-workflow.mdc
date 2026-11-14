@@ -1,0 +1,39 @@
+---
+description: Git branching, CI/CD, deployment workflow, and environment hygiene rules
+globs: **/*
+alwaysApply: true
+---
+
+# Git & Deployment Workflow Rules
+
+## 1. Branching Strategy & Environment Separation
+- **Three Core Environments:**
+  1. `local`: Developer workstation with Docker-backed PostgreSQL and Redis.
+  2. `staging`: Ephemeral/persistent staging cluster for integration validation and school pilot previews.
+  3. `production`: High-availability AWS ECS Fargate + RDS Multi-AZ environment.
+- **Branch Hierarchy:**
+  - `main`: Reflects production state. Direct pushes to `main` are strictly prohibited.
+  - `development`: Primary integration branch. All feature branches merge here via pull requests.
+  - `feature/<name>`: Short-lived feature branches branched from `development` (e.g., `feature/attendance-engine`).
+  - `fix/<name>`: Bugfix branches.
+
+## 2. Pull Request & Approval Standards
+- All code modifications must be reviewed and pass automated GitHub Actions CI checks (linting, typechecking, unit tests) before merging.
+- **Founder Approval Rule:** Never deploy to the production environment or execute production database migrations without explicit approval from the Founder & Technical Owner.
+- Never force-push (`git push --force`) to `main` or `development`.
+
+## 3. Secret Hygiene & Environment Variables
+- **Zero Secrets in Git:**
+  - `.env`, `.env.local`, `.env.production` files must NEVER be tracked in Git.
+  - Pre-commit scanning hooks must actively reject committed API keys, database credentials, or private certificates.
+- **Client Bundle Protection:**
+  - Never prefix backend-only secrets with `NEXT_PUBLIC_` or `EXPO_PUBLIC_`.
+  - Supabase `service_role` keys, database connection strings, and payment gateway secrets must exist exclusively on the Fastify backend server.
+- **Runtime Environment Validation:**
+  - Validate all required environment variables at process boot time using Zod schemas. Fail immediately with descriptive startup errors if any secret is missing.
+
+## 4. Reversible Deployments & Rollbacks
+- Production Docker images must be tagged with Git commit SHAs and semantic release versions (never rely solely on `:latest`).
+- Every production deployment must have an immediate rollback mechanism to the previous stable container image in AWS ECR.
+- Database migrations must follow the backward-compatible **Expand and Contract** pattern so that rolling back an application deployment container does not break database queries.
+

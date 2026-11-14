@@ -1,0 +1,40 @@
+---
+description: React Native and Expo mobile application rules for CodeNCampus
+globs: apps/mobile/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# React Native & Expo Development Rules
+
+## 1. Core Stack & Architecture
+- **Framework:** React Native with Expo (Managed Workflow, Expo SDK 52+).
+- **Navigation:** Expo Router (file-based routing under `apps/mobile/app/`).
+- **State Separation:**
+  - **Server State:** TanStack Query (`@tanstack/react-query`) for API fetching, caching, and optimistic mutations.
+  - **Client State:** Zustand for lightweight persistent client state (authenticated session, active tenant, active role persona, theme tokens).
+- **Form Validation:** React Hook Form coupled with Zod resolvers (`@hookform/resolvers/zod`) using shared `@codencampus/validators`.
+
+## 2. Role-Based Navigation & Personas
+- Support 5 authorized role dashboards:
+  1. `app/(student)/...`
+  2. `app/(parent)/...`
+  3. `app/(teacher)/...`
+  4. `app/(admin)/...`
+  5. `app/(principal)/...`
+- **Dynamic Role Routing:** Upon login, inspect authorized roles returned by `/api/v1/auth/me`. Direct the user to their default active role dashboard.
+- **Multi-Role Switching:** Support users with dual personas (e.g., Teacher who is also a Parent). Provide an instant switcher updating `activeRole` in Zustand and attaching `X-Active-Role` to API requests.
+- **Security Constraint:** Never allow client-side role escalation. All permissions must be re-verified on the Fastify backend.
+
+## 3. Dynamic Theming & White-Label Compatibility
+- Use `ThemeProvider` in `apps/mobile/src/theme/ThemeProvider.tsx`.
+- Never hardcode institutional colors or logos inside components. Consume dynamic colors (`primaryColor`, `secondaryColor`, `accentColor`) and tenant logo from the active session context.
+- Use responsive units, avoiding fixed pixel heights that break on varied screen sizes or tablets.
+
+## 4. UI/UX & Component Quality
+- **Mandatory UI States:** Every screen and data-dependent card MUST explicitly handle:
+  1. **Loading State:** Shimmer / Skeleton loader (avoid full-screen blocking spinners where possible).
+  2. **Empty State:** Friendly illustration/message with call-to-action when records (e.g., homework, notices) are empty.
+  3. **Error State:** Human-readable error message with a "Retry" button.
+  4. **Success State:** Instant visual feedback (toast/sheet) on actions like attendance submission or fee payment.
+- **Offline Resilience:** Configure TanStack Query persistence so parents and teachers can view previously cached data without a network connection.
+

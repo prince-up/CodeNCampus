@@ -1,0 +1,33 @@
+---
+description: Testing standards, verification criteria, and code quality rules for CodeNCampus
+globs: **/*
+alwaysApply: true
+---
+
+# Testing & Code Quality Rules
+
+## 1. Quality Gates & Definition of Done
+- **Verification Rule:** Never claim a feature is complete until it has been implemented, typechecked (`tsc --noEmit`), linted, and verified with passing automated tests.
+- **No Mocking Security:** Never mock or disable authentication plugins or tenant isolation hooks in integration tests. Use realistic test JWTs and seeded tenant fixtures.
+- **No Fake Production Data:** Never commit test files containing real student names, genuine phone numbers, or actual school financial records. Use faker/seed generators for test datasets.
+
+## 2. Mandatory Test Coverage Areas
+1. **Multi-Tenant Isolation Tests (P0):**
+   - Every domain module MUST include an automated test asserting that an authenticated request from School A receives HTTP 403 or 404 when attempting to query or modify School B's resources.
+2. **Sequential Human ID Generation:**
+   - Test concurrent student/invoice creation to ensure zero duplicate human-readable IDs (`DPS-STU-00001`).
+3. **RBAC & Permission Checks:**
+   - Test that users with unauthorized roles cannot execute restricted operations (e.g., student attempting to publish marks).
+4. **Financial Calculations & Gateway Webhooks:**
+   - Unit-test fee calculation formulas, sibling waivers, late fines, and idempotent handling of duplicate payment gateway webhooks.
+
+## 3. Testing Stack
+- **Unit & Integration Testing:** Vitest for Fastify backend services, Next.js server actions, and utility packages.
+- **Fastify Route Testing:** Use Fastify's native `fastify.inject()` for high-speed in-process HTTP integration testing without network port binding.
+- **Mobile Component Testing:** React Native Testing Library for UI components and custom hooks.
+
+## 4. Linting & Formatting Standards
+- Run `pnpm lint` and `pnpm format` before opening a pull request.
+- Zero TypeScript compiler errors (`tsc --noEmit` must pass cleanly across all monorepo workspaces).
+- Zero high/critical CVEs reported by security audit tools (`pnpm audit`).
+
