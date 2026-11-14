@@ -8,6 +8,11 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "mobile": "pnpm --filter @codencampus/mobile start",
+    "mobile:tunnel": "pnpm --filter @codencampus/mobile start:tunnel",
+    "mobile:clear": "pnpm --filter @codencampus/mobile start:clear",
+    "api": "pnpm --filter @codencampus/api dev",
+    "web": "pnpm --filter @codencampus/web dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
