@@ -2,6 +2,7 @@
   "name": "@codencampus/types",
   "version": "1.0.0",
   "private": true,
+  "author": "Codazk Technologies Private Limited",
   "description": "Shared TypeScript domain models and DTOs for CodeNCampus",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

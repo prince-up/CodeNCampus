@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 12.0.0"
+    "version": ">= 12.0.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -8,7 +9,37 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": false
+      }
+    },
+    "preview-simulator": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview-dpsrkp": {
+      "distribution": "internal",
+      "env": {
+        "APP_TENANT": "dpsrkp"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview-modern": {
+      "distribution": "internal",
+      "env": {
+        "APP_TENANT": "modern"
+      },
+      "android": {
+        "buildType": "apk"
+      }
     },
     "production": {
       "autoIncrement": true
@@ -16,11 +47,34 @@
     "production-codencampus": {
       "env": {
         "APP_TENANT": "default"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false
       }
     },
     "production-dpsrkp": {
       "env": {
         "APP_TENANT": "dpsrkp"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false
+      }
+    },
+    "production-modern": {
+      "env": {
+        "APP_TENANT": "modern"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false
       }
     }
   }

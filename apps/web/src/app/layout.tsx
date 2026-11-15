@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "CodeNCampus — School Operating System",
   description:
-    "Enterprise Multi-Tenant School Management Platform by Codazk Technologies",
+    "Enterprise Multi-Tenant School Management Platform by Codazk Technologies Private Limited",
 };
 
 export default function RootLayout({

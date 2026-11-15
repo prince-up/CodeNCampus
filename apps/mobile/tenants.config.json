@@ -8,7 +8,8 @@
     "splash": {
       "image": "./assets/splash.png",
       "backgroundColor": "#FFFFFF"
-    }
+    },
+    "defaultSchoolCode": "CNC"
   },
   "dpsrkp": {
     "name": "DPS R.K. Puram",
@@ -21,5 +22,17 @@
       "backgroundColor": "#0F5132"
     },
     "defaultSchoolCode": "DPSRKP"
+  },
+  "modern": {
+    "name": "Modern School",
+    "slug": "modern-school-campus",
+    "bundleIdentifier": "com.codencampus.modernschool",
+    "package": "com.codencampus.modernschool",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#7C2D12"
+    },
+    "defaultSchoolCode": "MODERN"
   }
 }

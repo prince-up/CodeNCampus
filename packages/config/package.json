@@ -2,6 +2,7 @@
   "name": "@codencampus/config",
   "version": "1.0.0",
   "private": true,
+  "author": "Codazk Technologies Private Limited",
   "description": "Shared configurations for CodeNCampus",
   "files": [
     "tsconfig.base.json"

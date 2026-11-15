@@ -13,6 +13,10 @@ const TENANT_SCOPED_MODELS = new Set([
   "Class",
   "Section",
   "AttendanceRecord",
+  "StudentProfile",
+  "ParentProfile",
+  "StaffProfile",
+  "StudentParentMapping",
 ]);
 
 /**

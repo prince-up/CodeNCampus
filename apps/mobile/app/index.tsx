@@ -1,144 +1,186 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import { useTheme } from "../src/theme/ThemeProvider";
+  ActivityIndicator,
+  Animated,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { useTheme } from '../src/theme/ThemeProvider';
+import { useAuthStore } from '../src/store/useAuthStore';
+import { Icon } from '../src/components/ui/Icon';
 
-export default function IndexScreen() {
+export default function IndexSplashScreen() {
+  const router = useRouter();
   const theme = useTheme();
+  const session = useAuthStore((s) => s.session);
 
-  const personas = [
-    { role: "Student", desc: "Timetable, attendance & homework tracker" },
-    { role: "Parent", desc: "Multi-child switcher, fees & real-time notices" },
-    { role: "Teacher", desc: "Attendance marking & assessment records" },
-    { role: "School Admin", desc: "Institution configuration & operations" },
-  ];
+  const [fadeAnim] = useState(new Animated.Value(0));
+  const [scaleAnim] = useState(new Animated.Value(0.92));
+
+  useEffect(() => {
+    // Smooth splash entrance animation
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        friction: 6,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    // Auto navigate after splash display
+    const timer = setTimeout(() => {
+      if (session) {
+        // Direct to appropriate role dashboard
+        const role = session.activeRole;
+        if (role === 'TEACHER') {
+          router.replace('/(dashboard)/teacher' as any);
+        } else if (role === 'PARENT') {
+          router.replace('/(dashboard)/parent' as any);
+        } else if (role === 'SCHOOL_ADMIN' || role === 'PRINCIPAL') {
+          router.replace('/(dashboard)/admin' as any);
+        } else {
+          router.replace('/(dashboard)/student' as any);
+        }
+      } else {
+        // First-time landing screen -> onboarding
+        router.replace('/onboarding' as any);
+      }
+    }, 1800);
+
+    return () => clearTimeout(timer);
+  }, [session]);
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <View style={styles.header}>
-        <Text
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <Animated.View
+        style={[
+          styles.content,
+          {
+            opacity: fadeAnim,
+            transform: [{ scale: scaleAnim }],
+          },
+        ]}
+      >
+        <View
           style={[
-            styles.badge,
-            { backgroundColor: theme.accent, color: theme.primary },
+            styles.logoContainer,
+            {
+              backgroundColor: theme.colors.primary,
+              shadowColor: theme.colors.primary,
+            },
           ]}
         >
-          Multi-Tenant Mobile App
-        </Text>
-        <Text style={[styles.title, { color: theme.text }]}>CodeNCampus</Text>
-        <Text style={[styles.subtitle, { color: theme.mutedText }]}>
-          Dynamic White-Label Experience for Nursery to Class 12
-        </Text>
-      </View>
+          <Icon name="school" size={48} color="#FFFFFF" />
+        </View>
 
-      <View style={styles.cardsContainer}>
-        {personas.map((item, index) => (
-          <TouchableOpacity
-            key={index}
+        <Text style={[styles.title, { color: theme.colors.text }]}>
+          {theme.shortName}
+        </Text>
+        <Text style={[styles.tagline, { color: theme.colors.textMuted }]}>
+          {theme.tagline}
+        </Text>
+
+        <View style={styles.badgeWrapper}>
+          <Text
             style={[
-              styles.card,
-              { backgroundColor: theme.card, borderColor: "#E2E8F0" },
+              styles.schoolBadge,
+              {
+                backgroundColor: theme.colors.accent,
+                color: theme.colors.primary,
+              },
             ]}
-            activeOpacity={0.7}
           >
-            <View
-              style={[styles.roleIndicator, { backgroundColor: theme.primary }]}
-            />
-            <View style={styles.cardContent}>
-              <Text style={[styles.cardTitle, { color: theme.text }]}>
-                {item.role}
-              </Text>
-              <Text style={[styles.cardDesc, { color: theme.mutedText }]}>
-                {item.desc}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+            {theme.name}
+          </Text>
+        </View>
+
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="small" color={theme.colors.primary} />
+          <Text style={[styles.loadingText, { color: theme.colors.textMuted }]}>
+            Securing campus session...
+          </Text>
+        </View>
+      </Animated.View>
 
       <View style={styles.footer}>
-        <Text style={[styles.footerText, { color: theme.mutedText }]}>
-          Codazk Technologies Private Limited
+        <Text style={[styles.footerText, { color: theme.colors.textMuted }]}>
+          Powered by Codazk Technologies Private Limited
         </Text>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
   },
-  header: {
-    paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 24,
-    alignItems: "center",
+  content: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
-  badge: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 9999,
-    fontSize: 12,
-    fontWeight: "600",
-    marginBottom: 12,
-    overflow: "hidden",
+  logoContainer: {
+    width: 96,
+    height: 96,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    elevation: 8,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "800",
-    marginBottom: 8,
+    fontSize: 30,
+    fontWeight: '900',
+    letterSpacing: -0.5,
+    marginBottom: 6,
   },
-  subtitle: {
+  tagline: {
     fontSize: 14,
-    textAlign: "center",
+    fontWeight: '500',
+    textAlign: 'center',
+    marginBottom: 16,
     maxWidth: 280,
-    lineHeight: 20,
   },
-  cardsContainer: {
-    paddingHorizontal: 20,
-    gap: 12,
+  badgeWrapper: {
+    marginBottom: 36,
   },
-  card: {
-    flexDirection: "row",
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+  schoolBadge: {
+    fontSize: 12,
+    fontWeight: '700',
+    paddingVertical: 5,
+    paddingHorizontal: 14,
+    borderRadius: 999,
+    overflow: 'hidden',
   },
-  roleIndicator: {
-    width: 6,
-    height: 36,
-    borderRadius: 3,
-    marginRight: 14,
+  loaderContainer: {
+    alignItems: 'center',
+    gap: 8,
   },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "700",
-    marginBottom: 2,
-  },
-  cardDesc: {
-    fontSize: 13,
+  loadingText: {
+    fontSize: 12,
+    fontWeight: '500',
   },
   footer: {
-    padding: 32,
-    alignItems: "center",
+    position: 'absolute',
+    bottom: 24,
   },
   footerText: {
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
 });

@@ -57,15 +57,19 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400 mb-4">
           <span>Fastify API v1.0</span>
           <span>•</span>
           <span>Next.js 15 App Router</span>
           <span>•</span>
-          <span>React Native Expo SDK 52</span>
+          <span>React Native Expo SDK 58</span>
           <span>•</span>
           <span>PostgreSQL 16 & Prisma</span>
         </div>
+
+        <p className="text-xs text-slate-400">
+          © 2026 Codazk Technologies Private Limited. All rights reserved.
+        </p>
       </div>
     </main>
   );

@@ -8,20 +8,18 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <Stack
           screenOptions={{
-            headerStyle: { backgroundColor: '#FFFFFF' },
-            headerShadowVisible: false,
-            headerTitleStyle: { fontWeight: '700' },
+            headerShown: false,
+            animation: 'slide_from_right',
           }}
         >
-          <Stack.Screen
-            name="index"
-            options={{
-              title: 'CodeNCampus',
-            }}
-          />
+          <Stack.Screen name="index" />
+          <Stack.Screen name="onboarding" />
+          <Stack.Screen name="login" />
+          <Stack.Screen name="forgot-password" />
+          <Stack.Screen name="(dashboard)" />
         </Stack>
       </ThemeProvider>
     </SafeAreaProvider>

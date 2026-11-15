@@ -2,6 +2,7 @@
   "name": "@codencampus/mobile",
   "version": "1.0.0",
   "private": true,
+  "author": "Codazk Technologies Private Limited",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
@@ -10,6 +11,10 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "build:apk": "eas build -p android --profile preview",
+    "build:apk:dpsrkp": "eas build -p android --profile preview-dpsrkp",
+    "build:apk:modern": "eas build -p android --profile preview-modern",
+    "export:cloud": "expo export",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -22,6 +27,7 @@
     "expo-linking": "~58.0.17",
     "expo-router": "~58.0.31",
     "expo-status-bar": "~58.0.5",
+    "expo-updates": "~58.0.22",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-native": "0.88.1",

@@ -2,6 +2,7 @@
   "name": "@codencampus/web",
   "version": "1.0.0",
   "private": true,
+  "author": "Codazk Technologies Private Limited",
   "description": "Next.js Web Management Console for CodeNCampus",
   "scripts": {
     "dev": "next dev -p 3000",

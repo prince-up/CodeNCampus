@@ -4,6 +4,10 @@ import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import { env } from "./env.js";
 import { healthRoutes } from "./routes/health.js";
+import { schoolRoutes } from "./modules/schools/schools.routes.js";
+import { classRoutes } from "./modules/classes/classes.routes.js";
+import { studentRoutes } from "./modules/students/students.routes.js";
+import { authRoutes } from "./modules/auth/auth.routes.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -62,6 +66,16 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   // Core Health Routes
   await app.register(healthRoutes);
+
+  // Authentication Routes
+  await app.register(authRoutes);
+
+  // Multi-Tenant School & White-Label Routes
+  await app.register(schoolRoutes);
+
+  // Student & Class Management Routes
+  await app.register(classRoutes);
+  await app.register(studentRoutes);
 
   return app;
 }

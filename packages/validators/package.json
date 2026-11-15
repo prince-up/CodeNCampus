@@ -2,6 +2,7 @@
   "name": "@codencampus/validators",
   "version": "1.0.0",
   "private": true,
+  "author": "Codazk Technologies Private Limited",
   "description": "Shared Zod schemas and validation logic for CodeNCampus",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
